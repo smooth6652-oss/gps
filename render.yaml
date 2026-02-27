@@ -1,0 +1,7 @@
+services:
+  - type: web
+    runtime: node
+    name: gps
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
