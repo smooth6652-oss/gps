@@ -1,8 +1,14 @@
+const http = require("http");
 const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 8080;
 
-const wss = new WebSocket.Server({ port: PORT });
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("WebSocket Relay is running");
+});
+
+const wss = new WebSocket.Server({ server });
 
 wss.on("connection", ws => {
   console.log("Client connected");
@@ -33,4 +39,6 @@ setInterval(() => {
   });
 }, 15000);
 
-console.log("WebSocket Relay running on port " + PORT);
+server.listen(PORT, () => {
+  console.log("WebSocket Relay running on port " + PORT);
+});
